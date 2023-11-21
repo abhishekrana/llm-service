@@ -1,0 +1,23 @@
+version: "3"
+
+tasks:
+  download-llama2-code:
+    desc: Download llama2 code
+    cmds:
+      - |
+        GIT_HASH=0b871f1
+        rm -rf llama.cpp
+        git clone https://github.com/ggerganov/llama.cpp.git
+        cd llama.cpp
+        git checkout ${GIT_HASH}
+        make
+
+  download-llama2-model:
+    desc: Download llama2 model
+    cmds:
+      - |
+        export MODEL=llama-2-13b-chat.ggmlv3.q4_0.bin
+        if [ ! -f models/${MODEL} ]; then
+            curl -L "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGML/resolve/main/${MODEL}" -o models/${MODEL}
+        fi
+        ./convert-llama-ggml-to-gguf.py --eps 1e-5 -i ./models/llama-2-13b-chat.ggmlv3.q4_0.bin -o ./models/llama-2-13b-chat.ggmlv3.q4_0.gguf.bin
