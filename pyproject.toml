@@ -9,6 +9,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "0.104.1"
+pydantic = "2.5.1"
+uvicorn = "0.24.0.post1"
 
 
 [build-system]
