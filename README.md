@@ -1,4 +1,4 @@
-# llm-local
+# llm-service
 
 RESTful service with LLMs (Large Language Models) running locally.
 

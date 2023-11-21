@@ -8,7 +8,7 @@ app = FastAPI()
 
 
 @app.post("/v1/completions/")
-def create_completions(req: CompletionsReq) -> CompletionsResp:
+def completions(req: CompletionsReq) -> CompletionsResp:
     completions: ICompletions | None = None
     if req.model == "llama2":
         completions = Completions()

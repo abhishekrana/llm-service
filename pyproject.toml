@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "llm-local"
+name = "llm-service"
 version = "0.1.0"
 description = ""
 authors = ["Abhishek Rana <abhishekrana502@gmail.com>"]
