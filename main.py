@@ -1,40 +1,26 @@
-import subprocess
-
 from fastapi import FastAPI
-from pydantic import BaseModel
+
+from resources.completions import CompletionsReq, ICompletions, CompletionsResp
+from llama.completions import Completions
 
 
 app = FastAPI()
 
 
-class PromptReq(BaseModel):
-    data: str
+@app.post("/v1/completions/")
+def create_completions(req: CompletionsReq) -> CompletionsResp:
+    completions: ICompletions | None = None
+    if req.model == "llama2":
+        completions = Completions()
+    else:
+        raise NotImplementedError
 
-
-class PromptResp(BaseModel):
-    data: str
-
-
-@app.post("/v1/prompt/")
-def create_prompt(prompt: PromptReq) -> PromptResp:
-    # Send prompt to LLM model
-    cmd: str = f'cd llama/llama.cpp && ./main -m ./models/llama-2-13b-chat.ggmlv3.q4_0.gguf.bin -p "{prompt}"'
-    output: str = subprocess.getoutput(cmd)
-
-    # Sanitize result
-    response: str = (
-        output.split(prompt.data)[1].split("[end of text]")[0].replace("\n", "").strip()
-    )
-
-    print(prompt)
-    print(output)
-    print(response)
-
-    return PromptResp(data=response)
+    resp: CompletionsResp = completions.create(req)
+    return resp
 
 
 def main() -> None:
-    print("started")
+    print("Started")
 
 
 if __name__ == "__main__":
