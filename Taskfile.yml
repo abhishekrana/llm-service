@@ -11,3 +11,8 @@ tasks:
         VENV_PATH=.venv
         poetry install
       - echo "source .venv/bin/activate"
+
+  run:
+    desc: Run app
+    cmds:
+      - ./.venv/bin/python3 -m uvicorn main:app --reload
