@@ -1,4 +1,13 @@
 version: "3"
 
 tasks:
-  no-op: {}
+  setup-venv:
+    desc: Setup virtualenv
+    cmds:
+      - rm -rf .venv
+      - POETRY_NO_INTERACTION=1
+        POETRY_VIRTUALENVS_CREATE=1
+        POETRY_VIRTUALENVS_IN_PROJECT=1
+        VENV_PATH=.venv
+        poetry install
+      - echo "source .venv/bin/activate"

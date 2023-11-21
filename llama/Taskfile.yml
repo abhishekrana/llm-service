@@ -17,7 +17,12 @@ tasks:
     cmds:
       - |
         export MODEL=llama-2-13b-chat.ggmlv3.q4_0.bin
-        if [ ! -f models/${MODEL} ]; then
-            curl -L "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGML/resolve/main/${MODEL}" -o models/${MODEL}
+        if [ ! -f llama.cpp/models/${MODEL} ]; then
+            curl -L "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGML/resolve/main/${MODEL}" -o llama.cpp/models/${MODEL}
         fi
-        ./convert-llama-ggml-to-gguf.py --eps 1e-5 -i ./models/llama-2-13b-chat.ggmlv3.q4_0.bin -o ./models/llama-2-13b-chat.ggmlv3.q4_0.gguf.bin
+        ./convert-llama-ggml-to-gguf.py --eps 1e-5 -i ./llama.cpp/models/llama-2-13b-chat.ggmlv3.q4_0.bin -o ./llama.cpp/models/llama-2-13b-chat.ggmlv3.q4_0.gguf.bin
+
+  run-llama2:
+    desc: Run llama2
+    cmds:
+      - ./main -m ./models/llama-2-13b-chat.ggmlv3.q4_0.gguf.bin -p "What is the day today?"

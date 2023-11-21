@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "llm-local"
+version = "0.1.0"
+description = ""
+authors = ["Abhishek Rana <abhishekrana502@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "0.104.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
